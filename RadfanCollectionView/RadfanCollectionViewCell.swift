@@ -14,8 +14,9 @@ class RadfanCollectionViewCell: UICollectionViewCell {
     
     override init (frame: CGRect) {
         super.init(frame: frame)
-        imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: frame.size.width, height: frame.size.height))
-        self.setupCell()
+        
+        imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        setupCell()
     }
     
     convenience init () {
@@ -24,15 +25,18 @@ class RadfanCollectionViewCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
         setupCell()
     }
     
     func setupCell () {
-        self.layer.cornerRadius = 10.0
+        
+        layer.cornerRadius = 10.0
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         imageView.layer.cornerRadius = 5.0
     }
 

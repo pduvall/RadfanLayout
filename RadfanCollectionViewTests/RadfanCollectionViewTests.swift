@@ -20,7 +20,7 @@ class RadfanCollectionViewTests: XCTestCase {
         layout = RadfanLayout()
         viewController = RadfanDemoViewController(collectionViewLayout: layout)
         viewController.collectionView?.bounds = CGRect(x: 0.0, y: 0.0, width: 375.0, height: 667.0)
-        layout.prepareLayout()
+        layout.prepare()
     }
     
     override func tearDown() {
@@ -36,7 +36,7 @@ class RadfanCollectionViewTests: XCTestCase {
         let numberOfItems = CGFloat( viewController.collectionView(viewController.collectionView!, numberOfItemsInSection: 0) )
         let collectionViewSize = viewController.collectionView!.bounds.size
         let contentSize = CGSize(width: numberOfItems*collectionViewSize.width, height: collectionViewSize.height)
-        XCTAssertEqual(contentSize, layout.collectionViewContentSize())
+        XCTAssertEqual(contentSize, layout.collectionViewContentSize)
     }
     
     func testLayoutAttributesForElementsInRect() {
@@ -45,9 +45,9 @@ class RadfanCollectionViewTests: XCTestCase {
         // pass a rect that encompasses the entire collection view content size
         //
         
-        let contentSize = layout.collectionViewContentSize()
+        let contentSize = layout.collectionViewContentSize
         let testRect = CGRect(x: 0.0, y: 0.0, width: contentSize.width, height: contentSize.height)
-        let attributesArray = layout.layoutAttributesForElementsInRect(testRect)
+        let attributesArray = layout.layoutAttributesForElements(in: testRect)
         let numberOfCells = viewController.collectionView(viewController.collectionView!, numberOfItemsInSection: 0)
         
         XCTAssertEqual(numberOfCells, attributesArray?.count)
@@ -68,7 +68,7 @@ class RadfanCollectionViewTests: XCTestCase {
         let scrollVelocity1 = CGPoint(x: -1.0, y: 0)
         let proposedOffset1 = CGPoint(x: collectionViewWidth / -3, y: 0.0)
         let expectedOffset1 = CGPoint(x: 0.0, y: 0.0)
-        XCTAssertEqual(expectedOffset1, layout.targetContentOffsetForProposedContentOffset(proposedOffset1, withScrollingVelocity: scrollVelocity1))
+        XCTAssertEqual(expectedOffset1, layout.targetContentOffset(forProposedContentOffset: proposedOffset1, withScrollingVelocity: scrollVelocity1))
         
         //
         // Case 2: Proposed content offset is 1.6x the width of the view
@@ -77,7 +77,7 @@ class RadfanCollectionViewTests: XCTestCase {
         let scrollVelocity2 = CGPoint(x: 1.0, y: 0)
         let proposedOffset2 = CGPoint(x: collectionViewWidth * 1.6, y: 0.0)
         let expectedOffset2 = CGPoint(x: collectionViewWidth * 2.0, y: 0.0)
-        XCTAssertEqual(expectedOffset2, layout.targetContentOffsetForProposedContentOffset(proposedOffset2, withScrollingVelocity: scrollVelocity2))
+        XCTAssertEqual(expectedOffset2, layout.targetContentOffset(forProposedContentOffset: proposedOffset2, withScrollingVelocity: scrollVelocity2))
         
         //
         // Case 3: Proposed content offset is beyond the final collection view cell (on the right)
@@ -88,7 +88,7 @@ class RadfanCollectionViewTests: XCTestCase {
         let numberOfCells = CGFloat( viewController.collectionView(viewController.collectionView!, numberOfItemsInSection: 0) )
         let proposedOffset3 = CGPoint(x: collectionViewWidth * (numberOfCells-0.51), y: 0.0)
         let expectedOffset3 = CGPoint(x: collectionViewWidth * (numberOfCells-1.0), y: 0.0)
-        XCTAssertEqual(expectedOffset3, layout.targetContentOffsetForProposedContentOffset(proposedOffset3, withScrollingVelocity: scrollVelocity3))
+        XCTAssertEqual(expectedOffset3, layout.targetContentOffset(forProposedContentOffset: proposedOffset3, withScrollingVelocity: scrollVelocity3))
     }
     
 }

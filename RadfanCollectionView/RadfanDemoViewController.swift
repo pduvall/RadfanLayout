@@ -10,7 +10,7 @@ import UIKit
 
 class RadfanDemoViewController: UICollectionViewController {
     
-    let colors = [UIColor.redColor(), UIColor.orangeColor(), UIColor.yellowColor(), UIColor.greenColor(), UIColor.blueColor(), UIColor.purpleColor()]
+    let colors = [UIColor.red, UIColor.orange, UIColor.yellow, UIColor.green, UIColor.blue, UIColor.purple]
 
     override func viewDidLoad() {
         super.viewDidLoad()        
@@ -22,24 +22,18 @@ class RadfanDemoViewController: UICollectionViewController {
 
 extension RadfanDemoViewController {
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return colors.count;
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colors.count
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! RadfanCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! RadfanCollectionViewCell
         
         cell.backgroundColor = colors[indexPath.row]
-        cell.layer.borderColor = colors[indexPath.row].CGColor
+        cell.layer.borderColor = colors[indexPath.row].cgColor
         
-        return cell;
+        return cell
     }
-    
-}
-
-// MARK: UICollectionViewDelegate
-
-extension RadfanDemoViewController {
     
 }
