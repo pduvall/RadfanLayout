@@ -146,7 +146,7 @@ class RadfanLayout: UICollectionViewLayout {
         }
         
         // 'snap to' and center the nearest 'page' (collection view item)
-        let pageWidth = collectionView.bounds.size.width
+        let pageWidth = collectionView.bounds.width
         let page = round(proposedContentOffset.x / pageWidth)
         
         return CGPoint(x: page * pageWidth, y: proposedContentOffset.y)
@@ -183,8 +183,7 @@ class RadfanLayout: UICollectionViewLayout {
             // create our affine transformations for the cell and apply them
             
             // translation along y-axis
-            var newTransform = CGAffineTransform.identity
-            newTransform = CGAffineTransform(translationX: 0, y: absMultiplier * RadfanConstants.ScrollConstants.translation)
+            var newTransform = CGAffineTransform(translationX: 0, y: absMultiplier * RadfanConstants.ScrollConstants.translation)
 
             // x and y scaling
             newTransform = newTransform.scaledBy(x: 1.0 - RadfanConstants.ScrollConstants.scaleX * absMultiplier, y: 1.0 - RadfanConstants.ScrollConstants.scaleY * absMultiplier)
@@ -195,5 +194,4 @@ class RadfanLayout: UICollectionViewLayout {
             layoutAttributes.transform = newTransform
         }
     }
-
 }
