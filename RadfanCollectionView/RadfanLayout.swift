@@ -100,28 +100,12 @@ class RadfanLayout: UICollectionViewLayout {
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
-        var layoutAttributes = [UICollectionViewLayoutAttributes]()
-        
-        for attributes in cache {
-            if attributes.frame.intersects(rect) {
-                // if the layoutAttributes frame is within the 'rect' parameter,
-                // add it to our array of attributes to return
-                layoutAttributes.append(attributes)
-            }
-        }
-        
-        return layoutAttributes
+        return cache.filter{ $0.frame.intersects(rect) }
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         
-        for attributes in cache {
-            if attributes.indexPath == indexPath {
-                return attributes
-            }
-        }
-        
-        return nil
+        return cache.filter{ $0.indexPath == indexPath }.first
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
