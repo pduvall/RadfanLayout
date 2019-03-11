@@ -40,16 +40,14 @@ class RadfanLayout: UICollectionViewLayout {
     private var cache = [UICollectionViewLayoutAttributes]()
     
     override var collectionViewContentSize: CGSize {
-        get {
-            
-            guard let collectionView = collectionView else {
-                return CGSize.zero
-            }
-            
-            // compute the content size for our collection view
-            let width = collectionView.bounds.width * CGFloat( collectionView.numberOfItems(inSection: 0) )
-            return CGSize(width: width, height: collectionView.bounds.height)
+        
+        guard let collectionView = collectionView else {
+            return CGSize.zero
         }
+        
+        // compute the content size for our collection view
+        let width = collectionView.bounds.width * CGFloat( collectionView.numberOfItems(inSection: 0) )
+        return CGSize(width: width, height: collectionView.bounds.height)
     }
 
     override func prepare() {
@@ -105,7 +103,13 @@ class RadfanLayout: UICollectionViewLayout {
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         
-        return cache.filter{ $0.indexPath == indexPath }.first
+        for attributes in cache {
+            if attributes.indexPath == indexPath {
+                return attributes
+            }
+        }
+        
+        return nil
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
